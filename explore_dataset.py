@@ -11,8 +11,8 @@ from mappings import MAP_PART_TO_CLASS, OBJECTS_FILTER
 
 MAP_CLASS_TO_DARKNESS = {}
 CLASS_COUNTS = {}
-darkness_increment = 10
-darkness = 10
+darkness_increment = 1
+darkness = 1
 skip_to_end = False
 
 result_dir = "results_map"
@@ -26,7 +26,7 @@ def plot_mask(img, mask, filename):
     mask = PIL.Image.fromarray(mask)
     new_filename = ''.join(filename.split('.')[0:-1]) + '.png'
     mask.convert('RGB').save(os.path.join(result_dir, new_filename))
-    print("Number of parts:", len(MAP_CLASS_TO_DARKNESS))
+    # print("Number of parts:", len(MAP_CLASS_TO_DARKNESS))
     
     global skip_to_end
     if skip_to_end == False:
@@ -43,6 +43,13 @@ def plot_mask(img, mask, filename):
             plt.axis("off")
             plt.imshow(mask)
             plt.show()
+        elif x == 'print':   
+            print()
+            print("obj_cnt: {} - bodypart_cnt: {}".format(obj_cnt, bodypart_cnt))
+            print("Class to darkness mapping:")
+            print(MAP_CLASS_TO_DARKNESS)
+            print("Class counts:")
+            print(CLASS_COUNTS)
         elif x == 'exit':
             exit(0)
 
@@ -57,6 +64,8 @@ if __name__ == "__main__":
     # Stats on the dataset:
     obj_cnt = 0
     bodypart_cnt = 0
+    processed = 0
+    skipped = 0
 
     mat_filenames = os.listdir(args.annotation_folder)
 
@@ -78,7 +87,6 @@ if __name__ == "__main__":
             if obj_name not in OBJECTS_FILTER:
                 continue
             bodypart_cnt += len(obj["parts"])
-            print("obj_cnt: {} - bodypart_cnt: {}".format(obj_cnt, bodypart_cnt), end="\r")
 
             for body_part in obj["parts"]:
                 part_name = body_part['part_name']
@@ -97,14 +105,20 @@ if __name__ == "__main__":
                         CLASS_COUNTS[real_class] += 1
         
         if labelExists == True:
-            print(MAP_CLASS_TO_DARKNESS)
+            # print(MAP_CLASS_TO_DARKNESS)
+            processed += 1
             plot_mask(img, total_mask, image_filename)
         else:
-            print("No parts found... skipping image.")
+            skipped += 1
+            # print("No parts found... skipping image.")
+
+        print("processed: {} - skipped: {}".format(processed, skipped), end="\r")
+        
 
 
+    print()
     print("obj_cnt: {} - bodypart_cnt: {}".format(obj_cnt, bodypart_cnt))
-
+    print("Class to darkness mapping:")
     print(MAP_CLASS_TO_DARKNESS)
     print("Class counts:")
     print(CLASS_COUNTS)
