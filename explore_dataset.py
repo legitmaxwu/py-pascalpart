@@ -16,7 +16,7 @@ darkness = 1
 skip_to_end = False
 
 result_dir = "results_map"
- 
+
 # TODO: mkdir results_map
 
 
@@ -69,6 +69,7 @@ if __name__ == "__main__":
 
     mat_filenames = os.listdir(args.annotation_folder)
 
+    print("Starting...")
     # Iterate through the .mat files contained in path:
     for idx, annotation_filename in enumerate(mat_filenames):
         annotations = utils.load_annotations(os.path.join(args.annotation_folder, annotation_filename))
