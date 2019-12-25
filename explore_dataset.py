@@ -32,8 +32,10 @@ def plot_mask(img, mask, filename):
     if skip_to_end == False:
         x = input()
         if x == 'skip':
+            print()
             skip_to_end = True
         elif x == 'show':
+            print()
             fig = plt.figure(dpi=300)
             fig.suptitle(filename)
             fig.add_subplot(1, 2, 1)
@@ -51,6 +53,7 @@ def plot_mask(img, mask, filename):
             print("Class counts:")
             print(CLASS_COUNTS)
         elif x == 'exit':
+            print()
             exit(0)
 
 # Load annotations from the annotation folder of PASCAL-Part dataset:
