@@ -1,6 +1,7 @@
 import argparse
 import PIL
 import os
+import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -117,6 +118,7 @@ if __name__ == "__main__":
             # print("No parts found... skipping image.")
 
         print("processed: {} - skipped: {}".format(processed, skipped), end="\r")
+        sys.stdout.flush()
         
 
 
