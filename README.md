@@ -13,7 +13,7 @@ Datasets if you don't have them on your computer:
 git clone https://github.com/micco00x/py-pascalpart
 mkdir datasets
 cd datasets
-wget http://www.stat.ucla.edu/~xianjie.chen/pascal_part_dataset/trainval.tar.gz
+wget http://roozbehm.info/pascal-parts/trainval.tar.gz
 wget http://host.robots.ox.ac.uk/pascal/VOC/voc2010/VOCtrainval_03-May-2010.tar
 tar -zxvf trainval.tar.gz
 tar -zxvf VOCtrainval_03-May-2010.tar
